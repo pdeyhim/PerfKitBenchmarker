@@ -33,6 +33,9 @@ from perfkitbenchmarker import flag_util
 from perfkitbenchmarker import version
 from perfkitbenchmarker import vm_util
 
+from boto import kinesis
+
+
 FLAGS = flags.FLAGS
 
 flags.DEFINE_string(
@@ -248,6 +251,20 @@ class CSVPublisher(SamplePublisher):
         writer.writerow(d)
 
 
+class ParvizPublisher(SamplePublisher):
+
+    def __init__(self):
+        self.conn = kinesis.connect_to_region(region_name = "us-east-1")
+        logging.info('Starting ParvizPublisher')
+
+    def PublishSamples(self, samples):
+
+        logging.info('Writing samples to ParvizPublisher')
+        for sample in samples:
+            sample = sample.copy()
+            self.conn.put_record("perfresults", json.dumps(sample),"parviz")
+
+
 class PrettyPrintStreamPublisher(SamplePublisher):
   """Writes samples to an output stream, defaulting to stdout.
 
@@ -411,7 +428,7 @@ class NewlineDelimitedJSONPublisher(SamplePublisher):
     collapse_labels: boolean. If true, collapse sample metadata.
   """
 
-  def __init__(self, file_path, mode='wb', collapse_labels=True):
+  def __init__(self, file_path, mode='wb', collapse_labels=False):
     self.file_path = file_path
     self.mode = mode
     self.collapse_labels = collapse_labels
@@ -569,7 +586,7 @@ class SampleCollector(object):
   @classmethod
   def _DefaultPublishers(cls):
     """Gets a list of default publishers."""
-    publishers = [LogPublisher(), PrettyPrintStreamPublisher()]
+    publishers = [LogPublisher(), PrettyPrintStreamPublisher(),ParvizPublisher()]
     default_json_path = vm_util.PrependTempDir(DEFAULT_JSON_OUTPUT_NAME)
     publishers.append(NewlineDelimitedJSONPublisher(
         FLAGS.json_path or default_json_path,
