@@ -34,9 +34,12 @@ from perfkitbenchmarker import version
 from perfkitbenchmarker import vm_util
 
 from boto import kinesis
-
+import boto3
+import avro.schema
+import io, random
 
 FLAGS = flags.FLAGS
+
 
 flags.DEFINE_string(
     'product_name',
@@ -98,6 +101,33 @@ flags.DEFINE_multistring(
     'A colon separated key-value pair that will be added to the labels field '
     'of all samples as metadata. Multiple key-value pairs may be specified '
     'by separating each pair by commas.')
+
+
+flags.DEFINE_string(
+    'kinesis_streamname',
+    None,
+    'name of the KinesisStream to publish to'
+    )
+
+flags.MarkFlagAsRequired('kinesis_streamname')
+
+flags.DEFINE_string(
+    'kinesis_region',
+    None,
+    'name of the Kinesis Stream region to publish to'
+)
+
+flags.MarkFlagAsRequired('kinesis_region')
+
+
+
+flags.DEFINE_string(
+    'test_uid',
+    None,
+    'uniuqe ID of the test'
+)
+
+flags.MarkFlagAsRequired('test_uid')
 
 DEFAULT_JSON_OUTPUT_NAME = 'perfkitbenchmarker_results.json'
 DEFAULT_CREDENTIALS_JSON = 'credentials.json'
@@ -254,16 +284,21 @@ class CSVPublisher(SamplePublisher):
 class ParvizPublisher(SamplePublisher):
 
     def __init__(self):
-        self.conn = kinesis.connect_to_region(region_name = "us-east-1")
+        self.client = boto3.client('firehose',region_name=FLAGS.kinesis_region)
         logging.info('Starting ParvizPublisher')
+
 
     def PublishSamples(self, samples):
 
         logging.info('Writing samples to ParvizPublisher')
         for sample in samples:
             sample = sample.copy()
-            self.conn.put_record("perfresults", json.dumps(sample),"parviz")
-
+            response = self.client.put_record(
+                DeliveryStreamName=FLAGS.kinesis_streamname,
+                Record={
+                    'Data': json.dumps(sample)+"\n"
+                }
+            )
 
 class PrettyPrintStreamPublisher(SamplePublisher):
   """Writes samples to an output stream, defaulting to stdout.
@@ -619,6 +654,7 @@ class SampleCollector(object):
       # Annotate the sample.
       sample = dict(s.asdict())
       sample['test'] = benchmark
+      sample['test_uid']= FLAGS.test_uid
 
       for meta_provider in self.metadata_providers:
         sample['metadata'] = meta_provider.AddMetadata(
