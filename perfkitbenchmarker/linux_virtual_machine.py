@@ -226,7 +226,7 @@ class BaseLinuxMixin(virtual_machine.BaseOsMixin):
     """
     for package_name in self._installed_packages:
       self.Uninstall(package_name)
-    self.RestorePackages()
+    ##self.RestorePackages()
     self.RemoteCommand('rm -rf %s' % vm_util.VM_TMP_DIR)
 
   def GetPathToConfig(self, package_name):
