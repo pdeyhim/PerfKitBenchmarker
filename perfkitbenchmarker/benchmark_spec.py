@@ -372,8 +372,8 @@ class BenchmarkSpec(object):
     Args:
         vm: The BaseVirtualMachine object representing the VM.
     """
-    if vm.is_static and vm.install_packages:
-      vm.PackageCleanup()
+    ##if vm.is_static and vm.install_packages:
+    ##  vm.PackageCleanup()
     vm.Delete()
     vm.DeleteScratchDisks()
 
