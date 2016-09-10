@@ -130,7 +130,7 @@ def ParseResults(job_file, fio_json_result, base_metadata=None):
   samples = []
   # The samples should all have the same timestamp because they
   # come from the same fio run.
-  timestamp = int(time.time())
+  timestamp = str(int(time.time()))
   parameter_metadata = ParseJobFile(job_file)
   io_modes = ['read', 'write', 'trim']
   for job in fio_json_result['jobs']:
