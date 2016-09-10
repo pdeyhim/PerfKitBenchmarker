@@ -191,6 +191,8 @@ class BaseLinuxMixin(virtual_machine.BaseOsMixin):
 
   def PrepareVMEnvironment(self):
     self.SetupProxy()
+    ##cleanup data from previous jobs
+    self.RemoteCommand('rm -rf %s' % vm_util.VM_TMP_DIR)
     self.RemoteCommand('mkdir -p %s' % vm_util.VM_TMP_DIR)
     if FLAGS.setup_remote_firewall:
       self.SetupRemoteFirewall()
