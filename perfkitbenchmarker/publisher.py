@@ -33,9 +33,7 @@ from perfkitbenchmarker import flag_util
 from perfkitbenchmarker import version
 from perfkitbenchmarker import vm_util
 
-from boto import kinesis
 import boto3
-import avro.schema
 import io, random
 
 FLAGS = flags.FLAGS
