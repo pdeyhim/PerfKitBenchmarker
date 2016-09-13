@@ -22,6 +22,7 @@ import base64
 import json
 import logging
 import threading
+import requests
 
 from perfkitbenchmarker import disk
 from perfkitbenchmarker import errors
@@ -325,6 +326,11 @@ class AwsVirtualMachine(virtual_machine.BaseVirtualMachine):
   def AddMetadata(self, **kwargs):
     """Adds metadata to the VM."""
     util.AddTags(self.id, self.region, **kwargs)
+
+
+  def GetVMZone(self):
+      zone = requests.get('http://169.254.169.254/2016-06-30/meta-data/placement/availability-zone/').text
+      return zone
 
 
 class DebianBasedAwsVirtualMachine(AwsVirtualMachine,

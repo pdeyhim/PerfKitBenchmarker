@@ -377,7 +377,7 @@ def DoRunPhase(benchmark, name, spec, collector, timer):
   deadline = time.time() + FLAGS.run_stage_time
   run_number = 0
   while True:
-    logging.info('Running benchmark %s and instance ID %s', name)
+    logging.info('Running benchmark %s', name)
     events.before_phase.send(events.RUN_PHASE, benchmark_spec=spec)
     try:
       with timer.Measure('Benchmark Run'):

@@ -310,6 +310,9 @@ class BaseVirtualMachine(resource.BaseResource):
     """
     pass
 
+  def GetVMZone(self):
+    pass
+
   def GetMachineTypeDict(self):
     """Returns a dict containing properties that specify the machine type.
 

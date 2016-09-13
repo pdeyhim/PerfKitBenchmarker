@@ -407,7 +407,9 @@ def Run(benchmark_spec):
     A list of sample.Sample objects.
   """
   vm = benchmark_spec.vms[0]
+  zone = vm.GetVMZone()
   logging.info('FIO running on %s', vm)
+  logging.info('zone %s', zone)
 
   disk = vm.scratch_disks[0]
   mount_point = disk.mount_point

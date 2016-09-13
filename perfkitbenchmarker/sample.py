@@ -76,12 +76,10 @@ class Sample(collections.namedtuple('Sample', _SAMPLE_FIELDS)):
     timestamp: float. Unix timestamp.
   """
 
-  def __new__(cls, metric, value, unit, metadata={}, timestamp=None,
+  def __new__(cls, metric, value, unit, metadata=None, timestamp=None,
               **kwargs):
     if timestamp is None:
       timestamp = str(int(time.time()))
-
-    metadata.update({'ParvizMetadata':'Deyhim'})
 
     return super(Sample, cls).__new__(cls, metric, value, unit,
                                       metadata=metadata or {},
