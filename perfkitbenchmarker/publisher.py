@@ -25,6 +25,7 @@ import pprint
 import sys
 import time
 import uuid
+import requests
 
 from perfkitbenchmarker import disk
 from perfkitbenchmarker import events
@@ -172,6 +173,7 @@ class DefaultMetadataProvider(MetadataProvider):
   """Adds default metadata to samples."""
 
   def AddMetadata(self, metadata, benchmark_spec):
+    response = requests.get('http://169.254.169.254/latest/meta-data/instance-id')
     metadata = metadata.copy()
     metadata['perfkitbenchmarker_version'] = version.VERSION
     if FLAGS.hostname_metadata:

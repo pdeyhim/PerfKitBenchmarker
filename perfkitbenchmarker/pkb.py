@@ -62,7 +62,6 @@ import logging
 import sys
 import time
 import uuid
-import requests
 
 from perfkitbenchmarker import archive
 from perfkitbenchmarker import benchmark_sets
@@ -378,8 +377,7 @@ def DoRunPhase(benchmark, name, spec, collector, timer):
   deadline = time.time() + FLAGS.run_stage_time
   run_number = 0
   while True:
-    response = requests.get('http://169.254.169.254/latest/meta-data/instance-id')
-    logging.info('Running benchmark %s and instance ID %s', (name,response.text))
+    logging.info('Running benchmark %s and instance ID %s', name)
     events.before_phase.send(events.RUN_PHASE, benchmark_spec=spec)
     try:
       with timer.Measure('Benchmark Run'):
