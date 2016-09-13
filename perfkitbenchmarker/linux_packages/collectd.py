@@ -23,7 +23,7 @@ perfkitbenchmarker/data/build_collectd.sh.j2 for configuration details.
 import posixpath
 
 from perfkitbenchmarker import data
-from perfkitbenchmarker import vm_utilf
+from perfkitbenchmarker import vm_util
 
 # TODO: Make collection interval configurable.
 INTERVAL = 10
