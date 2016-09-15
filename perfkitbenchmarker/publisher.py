@@ -137,9 +137,9 @@ flags.DEFINE_string(
 )
 
 flags.DEFINE_string(
-    'cloud',
+    'cloud_provider',
     None,
-    'cloud'
+    'cloud_provider'
 )
 
 flags.DEFINE_string(
@@ -256,6 +256,10 @@ class DefaultMetadataProvider(MetadataProvider):
       if FLAGS.offering_type:
 
         metadata[name_prefix + 'offering_type'] = FLAGS.offering_type
+
+      if FLAGS.cloud_provider:
+
+        metadata[name_prefix + 'cloud'] = FLAGS.cloud_provider
 
     # Flatten all user metadata into a single list (since each string in the
     # FLAGS.metadata can actually be several key-value pairs) and then iterate
