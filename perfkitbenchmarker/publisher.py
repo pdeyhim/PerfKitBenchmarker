@@ -249,6 +249,10 @@ class DefaultMetadataProvider(MetadataProvider):
 
         metadata[name_prefix + 'test_disk_type'] = FLAGS.test_disk_type
 
+      if FLAGS.test_disk_size:
+
+        metadata[name_prefix + 'test_disk_size'] = FLAGS.test_disk_size
+
       if FLAGS.offering:
 
         metadata[name_prefix + 'offering'] = FLAGS.offering
