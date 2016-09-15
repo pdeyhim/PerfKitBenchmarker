@@ -117,8 +117,6 @@ flags.DEFINE_string(
 
 flags.MarkFlagAsRequired('kinesis_region')
 
-
-
 flags.DEFINE_string(
     'test_uid',
     None,
@@ -126,6 +124,14 @@ flags.DEFINE_string(
 )
 
 flags.MarkFlagAsRequired('test_uid')
+
+
+flags.DEFINE_string(
+    'test_disk_type',
+    None,
+    'the type of disk the test was run against'
+)
+
 
 DEFAULT_JSON_OUTPUT_NAME = 'perfkitbenchmarker_results.json'
 DEFAULT_CREDENTIALS_JSON = 'credentials.json'
@@ -215,6 +221,10 @@ class DefaultMetadataProvider(MetadataProvider):
                 data_disk.metadata[disk.LEGACY_DISK_TYPE])
           for key, value in data_disk.metadata.iteritems():
             metadata[name_prefix + 'data_disk_0_%s' % (key, )] = value
+
+      if FLAGS.test_disk_type:
+
+        metadata[name_prefix + 'test_disk_type'] = FLAGS.test_disk_type
 
     # Flatten all user metadata into a single list (since each string in the
     # FLAGS.metadata can actually be several key-value pairs) and then iterate
