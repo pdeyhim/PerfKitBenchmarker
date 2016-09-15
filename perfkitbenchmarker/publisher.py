@@ -255,7 +255,7 @@ class DefaultMetadataProvider(MetadataProvider):
 
       if FLAGS.offering_type:
 
-      metadata[name_prefix + 'offering_type'] = FLAGS.offering_type
+        metadata[name_prefix + 'offering_type'] = FLAGS.offering_type
 
     # Flatten all user metadata into a single list (since each string in the
     # FLAGS.metadata can actually be several key-value pairs) and then iterate
