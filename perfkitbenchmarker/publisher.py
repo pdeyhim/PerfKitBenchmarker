@@ -121,7 +121,7 @@ flags.DEFINE_string(
     'uniuqe ID of the test'
 )
 
-flags.MarkFlagAsRequired('test_uid')
+##flags.MarkFlagAsRequired('test_uid')
 
 
 flags.DEFINE_string(
