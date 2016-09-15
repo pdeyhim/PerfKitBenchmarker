@@ -302,7 +302,7 @@ class ParvizPublisher(SamplePublisher):
 
     def PublishSamples(self, samples):
 
-        logging.info('Writing samples to ParvizPublisher')
+        logging.info('Writing samples to ParvizPublisher: %s', FLAGS.kinesis_streamname )
         for sample in samples:
             sample = sample.copy()
             response = self.client.put_record(
