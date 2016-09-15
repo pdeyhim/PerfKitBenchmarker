@@ -22,8 +22,8 @@ from perfkitbenchmarker import sample
 from perfkitbenchmarker import vm_util
 
 
-##FIO_DIR = '%s/fio' % vm_util.VM_TMP_DIR
-FIO_DIR ='/usr/bin/'
+FIO_DIR = '%s/fio' % vm_util.VM_TMP_DIR
+##FIO_DIR ='/usr/bin/'
 ##GIT_REPO = 'http://git.kernel.dk/fio.git'
 GIT_REPO = 'https://github.com/axboe/fio.git'
 GIT_TAG = 'fio-2.2.10'
@@ -43,9 +43,9 @@ JOB_STONEWALL_PARAMETER = 'stonewall'
 def _Install(vm):
   """Installs the fio package on the VM."""
   vm.Install('build_tools')
-  ##vm.RemoteCommand('git clone {0} {1}'.format(GIT_REPO, FIO_DIR))
-  ##vm.RemoteCommand('cd {0} && git checkout {1}'.format(FIO_DIR, GIT_TAG))
-  ##vm.RemoteCommand('cd {0} && ./configure && make'.format(FIO_DIR))
+  vm.RemoteCommand('git clone {0} {1}'.format(GIT_REPO, FIO_DIR))
+  vm.RemoteCommand('cd {0} && git checkout {1}'.format(FIO_DIR, GIT_TAG))
+  vm.RemoteCommand('cd {0} && ./configure && make'.format(FIO_DIR))
 
 
 def YumInstall(vm):
