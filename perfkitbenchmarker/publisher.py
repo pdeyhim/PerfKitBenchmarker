@@ -103,7 +103,7 @@ flags.DEFINE_multistring(
 
 flags.DEFINE_string(
     'kinesis_streamname',
-    "parvizfire",
+    "performancefire",
     'name of the KinesisStream to publish to'
     )
 
@@ -343,7 +343,7 @@ class ParvizPublisher(SamplePublisher):
                     'Data': json.dumps(sample)+"\n"
                 }
             )
-            logging.info('Kinesis response: ', response )
+            ##logging.info('Kinesis response: ', response )
 
 class PrettyPrintStreamPublisher(SamplePublisher):
   """Writes samples to an output stream, defaulting to stdout.
