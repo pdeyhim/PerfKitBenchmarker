@@ -107,15 +107,13 @@ flags.DEFINE_string(
     'name of the KinesisStream to publish to'
     )
 
-flags.MarkFlagAsRequired('kinesis_streamname')
+##flags.MarkFlagAsRequired('kinesis_streamname')
 
 flags.DEFINE_string(
     'kinesis_region',
-    None,
+    "us-east-1",
     'name of the Kinesis Stream region to publish to'
 )
-
-flags.MarkFlagAsRequired('kinesis_region')
 
 flags.DEFINE_string(
     'test_uid',
@@ -123,7 +121,7 @@ flags.DEFINE_string(
     'uniuqe ID of the test'
 )
 
-flags.MarkFlagAsRequired('test_uid')
+##flags.MarkFlagAsRequired('test_uid')
 
 
 flags.DEFINE_string(
