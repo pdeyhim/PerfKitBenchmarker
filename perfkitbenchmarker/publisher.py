@@ -136,6 +136,25 @@ flags.DEFINE_string(
     'the size of disk the test was run against'
 )
 
+flags.DEFINE_string(
+    'cloud',
+    None,
+    'cloud'
+)
+
+flags.DEFINE_string(
+    'offering',
+    None,
+    'offering'
+)
+
+flags.DEFINE_string(
+    'offering_type',
+    None,
+    'offering'
+)
+
+
 
 DEFAULT_JSON_OUTPUT_NAME = 'perfkitbenchmarker_results.json'
 DEFAULT_CREDENTIALS_JSON = 'credentials.json'
@@ -229,6 +248,14 @@ class DefaultMetadataProvider(MetadataProvider):
       if FLAGS.test_disk_type:
 
         metadata[name_prefix + 'test_disk_type'] = FLAGS.test_disk_type
+
+      if FLAGS.offering:
+
+        metadata[name_prefix + 'offering'] = FLAGS.offering
+
+      if FLAGS.offering_type:
+
+      metadata[name_prefix + 'offering_type'] = FLAGS.offering_type
 
     # Flatten all user metadata into a single list (since each string in the
     # FLAGS.metadata can actually be several key-value pairs) and then iterate
