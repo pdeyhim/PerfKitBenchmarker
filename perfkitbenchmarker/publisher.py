@@ -103,7 +103,7 @@ flags.DEFINE_multistring(
 
 flags.DEFINE_string(
     'kinesis_streamname',
-    None,
+    "parvizfire",
     'name of the KinesisStream to publish to'
     )
 
@@ -121,7 +121,7 @@ flags.DEFINE_string(
     'uniuqe ID of the test'
 )
 
-##flags.MarkFlagAsRequired('test_uid')
+flags.MarkFlagAsRequired('test_uid')
 
 
 flags.DEFINE_string(
@@ -295,7 +295,6 @@ class CSVPublisher(SamplePublisher):
 
 class ParvizPublisher(SamplePublisher):
 
-    FLAGS = flags.FLAGS
 
     def __init__(self):
         self.client = boto3.client('firehose',region_name=FLAGS.kinesis_region)
@@ -304,7 +303,7 @@ class ParvizPublisher(SamplePublisher):
 
     def PublishSamples(self, samples):
 
-        logging.info('Writing samples to ParvizPublisher: %s %s', FLAGS.kinesis_streamname,FLAGS.test_disk_type )
+        logging.info('Writing samples to ParvizPublisher: %s ', FLAGS.kinesis_streamname )
         for sample in samples:
             sample = sample.copy()
             response = self.client.put_record(
