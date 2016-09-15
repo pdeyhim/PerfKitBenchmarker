@@ -343,6 +343,7 @@ class ParvizPublisher(SamplePublisher):
                     'Data': json.dumps(sample)+"\n"
                 }
             )
+            logging.info('Kinesis response: ', response )
 
 class PrettyPrintStreamPublisher(SamplePublisher):
   """Writes samples to an output stream, defaulting to stdout.
