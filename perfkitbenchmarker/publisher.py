@@ -295,6 +295,8 @@ class CSVPublisher(SamplePublisher):
 
 class ParvizPublisher(SamplePublisher):
 
+    FLAGS = flags.FLAGS
+
     def __init__(self):
         self.client = boto3.client('firehose',region_name=FLAGS.kinesis_region)
         logging.info('Starting ParvizPublisher')
