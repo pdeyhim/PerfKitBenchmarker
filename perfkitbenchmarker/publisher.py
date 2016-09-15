@@ -132,6 +132,12 @@ flags.DEFINE_string(
     'the type of disk the test was run against'
 )
 
+flags.DEFINE_string(
+    'test_disk_size',
+    None,
+    'the size of disk the test was run against'
+)
+
 
 DEFAULT_JSON_OUTPUT_NAME = 'perfkitbenchmarker_results.json'
 DEFAULT_CREDENTIALS_JSON = 'credentials.json'
