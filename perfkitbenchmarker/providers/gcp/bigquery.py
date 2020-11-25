@@ -331,8 +331,9 @@ class Bigquery(edw_service.EdwService):
 
   def __init__(self, edw_service_spec):
     super(Bigquery, self).__init__(edw_service_spec)
-    project_id = re.split(r'\.', self.cluster_identifier)[0]
-    dataset_id = re.split(r'\.', self.cluster_identifier)[1]
+    cluster_identifier_splitted = re.split(r'\.', self.cluster_identifier)
+    project_id = cluster_identifier_splitted[0]
+    dataset_id = cluster_identifier_splitted[1] if len(cluster_identifier_splitted) > 1 else 'default'
     self.client_interface = GetBigQueryClientInterface(project_id, dataset_id)
 
   def _Create(self):

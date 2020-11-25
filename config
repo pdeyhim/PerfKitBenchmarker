@@ -1,0 +1,6 @@
+edw_benchmark:
+  description: Sample edw benchmark
+  edw_service:
+    type: bigquery
+    cluster_identifier: benchops-dev-292322
+
