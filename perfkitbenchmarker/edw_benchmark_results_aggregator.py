@@ -54,7 +54,7 @@ def geometric_mean(iterable: List[float]) -> float:
   return a.prod() ** (1.0 / len(a))
 
 
-class EdwQueryExecutionStatus(enum.Enum):
+class EdwQueryExecutionStatus(str, enum.Enum):
   """Enum class for potential status of query execution.
 
   Potential values:
